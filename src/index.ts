@@ -21,7 +21,12 @@ createConnection().then(async connection => {
       where: {
         id: savedPost.id
       },
-      relations: ['integrationSource'],
+      join: {
+        alias: 'post',
+        leftJoinAndSelect: {
+          integrationSource: 'post.integrationSource'
+        }
+      }
     });
 
     console.log("integrationSource of post from DB", fromDBPost.integrationSource);
